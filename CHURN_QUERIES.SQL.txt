@@ -1,0 +1,67 @@
+-- =========================================
+-- Customer Churn Analysis Queries
+-- Database: customer_churn_analysis
+-- =========================================
+
+USE customer_churn_analysis;
+
+-- 1. View all customers
+SELECT * FROM CUSTOMERS;
+
+-- 2. View all subscriptions
+SELECT * FROM SUBSCRIPTIONS;
+
+-- 3. View all payments
+SELECT * FROM PAYMENTS;
+
+-- 4. View all plans
+SELECT * FROM PLANS;
+
+-- 5. Active Customers (currently subscribed)
+SELECT 
+    c.CUSTOMER_ID,
+    c.CUSTOMER_NAME,
+    p.PLAN_NAME,
+    s.START_DATE
+FROM CUSTOMERS c
+JOIN SUBSCRIPTIONS s ON c.CUSTOMER_ID = s.CUSTOMER_ID
+JOIN PLANS p ON s.PLAN_ID = p.PLAN_ID
+WHERE s.END_DATE IS NULL;
+
+-- 6. Churned Customers (subscription ended)
+SELECT 
+    c.CUSTOMER_ID,
+    c.CUSTOMER_NAME,
+    p.PLAN_NAME,
+    s.END_DATE
+FROM CUSTOMERS c
+JOIN SUBSCRIPTIONS s ON c.CUSTOMER_ID = s.CUSTOMER_ID
+JOIN PLANS p ON s.PLAN_ID = p.PLAN_ID
+WHERE s.END_DATE IS NOT NULL;
+
+-- 7. Month-wise Churn Analysis
+SELECT 
+    MONTH(END_DATE) AS churn_month,
+    COUNT(*) AS total_churned_customers
+FROM SUBSCRIPTIONS
+WHERE END_DATE IS NOT NULL
+GROUP BY MONTH(END_DATE)
+ORDER BY churn_month;
+
+-- 8. Plan-wise Churn Analysis
+SELECT 
+    p.PLAN_NAME,
+    COUNT(s.CUSTOMER_ID) AS churn_count
+FROM SUBSCRIPTIONS s
+JOIN PLANS p ON s.PLAN_ID = p.PLAN_ID
+WHERE s.END_DATE IS NOT NULL
+GROUP BY p.PLAN_NAME;
+
+-- 9. Top Customers based on Payment Amount
+SELECT 
+    c.CUSTOMER_NAME,
+    SUM(pay.AMOUNT) AS total_payment
+FROM CUSTOMERS c
+JOIN PAYMENTS pay ON c.CUSTOMER_ID = pay.CUSTOMER_ID
+GROUP BY c.CUSTOMER_NAME
+ORDER BY total_payment DESC;

@@ -1,0 +1,26 @@
+Customer Churn Analysis Summary:
+
+1. Month-wise Churn Analysis:
+- Churn varies across different months.
+- Customers 2 and 4 churned in May and June respectively.
+- Month-wise analysis helps identify seasonal patterns in customer churn.
+
+2. Plan-wise Churn Analysis:
+- Standard plan had 2 churned customers.
+- Basic plan had 1 churned customer.
+- Premium plan had no churn.
+- Indicates Premium customers are more loyal.
+
+3. Active Customers:
+- Customers 1, 3, and 5 are currently active.
+- Monitoring active customers helps in retention strategies.
+
+4. Top Customers based on Payment:
+- Neha is the top-paying customer with total payments of 2000.
+- Pooja and Rahul follow with 1000 each.
+- Identifying top customers is useful for loyalty programs.
+
+Conclusion:
+The analysis helps understand customer behavior, identify churn trends, 
+and recognize high-value customers. This information can guide marketing 
+and retention strategies.
